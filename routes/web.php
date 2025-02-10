@@ -2,28 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/about', function () {
-    return view('about.index',["name"=>"Hitesh"]);
-});
+use App\Http\Controllers\DetailController;
 
+Route::get('/details', [DetailController::class, 'index'])->name('details.index');
+Route::post('/details', [DetailController::class, 'store'])->name('details.store');
+Route::get('/details/{id}/edit', [DetailController::class, 'edit'])->name('details.edit');
+Route::put('/details/{id}', [DetailController::class, 'update'])->name('details.update');
+Route::delete('/details/{id}', [DetailController::class, 'destroy'])->name('details.destroy');
+// Route::post('/details/bulk-upload', [DetailController::class, 'bulkUpload'])->name('details.bulk.upload');
+// Route::get('/details/bulk-download', [DetailController::class, 'bulkDownload'])->name('details.bulk.download');
+Route::post('/details/bulk-upload', [DetailController::class, 'bulkUpload'])->name('details.bulk.upload');
 
-Route::get('/teas',function(){
-    $teas = [
-        ["name"=>"Masala chai", "price"=>100,"id"=>1],
-        ["name"=>"Ginger chai", "price"=>150,"id"=>2],
-        ["name"=>"Assam chai", "price"=>200,"id"=>3],
-    ];
-    return view('teas.index',['teas'=>$teas]);
-});
-
-Route::get('/teas/{id}',function($id){
-    $teas = [
-        ["name"=>"Masala chai", "price"=>100,"id"=>1],
-        ["name"=>"Ginger chai", "price"=>150,"id"=>2],
-        ["name"=>"Assam chai", "price"=>200,"id"=>3],
-    ];
-    return view('teas.teadetail',['tea'=>$teas[$id - 1]]);
-});
+// Bulk download
+Route::get('/details/bulk-download', [DetailController::class, 'bulkDownload'])->name('details.bulk.download');

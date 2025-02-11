@@ -62,11 +62,11 @@ class DetailController extends Controller
 
     public function bulkUpload(Request $request)
     {
-        // Handle bulk upload logic here
+
     }
 
     public function bulkDownload()
     {
-        // Handle bulk download logic here
+       
     }
 }
